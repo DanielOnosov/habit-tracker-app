@@ -11,7 +11,7 @@ import CoreData
 import UserNotifications
 
 class HabitDetailsViewModel {
-    private let context: NSManagedObjectContext
+    let context: NSManagedObjectContext
     
     init(context: NSManagedObjectContext) {
         self.context = context

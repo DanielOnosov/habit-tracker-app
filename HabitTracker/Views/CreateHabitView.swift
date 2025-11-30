@@ -10,6 +10,15 @@ import UIKit
 
 
 class CreateHabitView: UIViewController {
+    private let viewModel: CreateHabitViewModel
+    
+    init(viewModel: CreateHabitViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) { fatalError() }
+    
     private var label: UILabel = {
         let label = UILabel()
         label.text = "Create Habit"
@@ -35,5 +44,8 @@ class CreateHabitView: UIViewController {
 }
 
 #Preview("Page 1") {
-    UINavigationController(rootViewController: CreateHabitView())
+    let context = CoreDataStack.shared.context
+    let viewModel = CreateHabitViewModel(context: context)
+    
+    UINavigationController(rootViewController: CreateHabitView(viewModel: viewModel))
 }

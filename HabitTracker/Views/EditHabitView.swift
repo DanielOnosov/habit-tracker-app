@@ -10,6 +10,15 @@ import UIKit
 
 
 class EditHabitView: UIViewController {
+    private let viewModel: EditHabitViewModel
+    
+    init(viewModel: EditHabitViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) { fatalError() }
+    
     private var label: UILabel = {
         let label = UILabel()
         label.text = "Edit Habbit"
@@ -35,5 +44,8 @@ class EditHabitView: UIViewController {
 }
 
 #Preview("Page 1") {
-    UINavigationController(rootViewController: EditHabitView())
+    let context = CoreDataStack.shared.context
+    let viewModel = EditHabitViewModel(context: context)
+    
+    UINavigationController(rootViewController: EditHabitView(viewModel: viewModel))
 }

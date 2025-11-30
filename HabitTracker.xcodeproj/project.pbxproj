@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		820265B22ECF83EF006B90B2 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 820265B12ECF83EF006B90B2 /* SnapKit */; };
+		82D2C3B32EDC5FA8001CB563 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D2C3B22EDC5FA6001CB563 /* CoreDataStack.swift */; };
+		82D2C3B42EDC5FA8001CB563 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D2C3B22EDC5FA6001CB563 /* CoreDataStack.swift */; };
 		82D376332ED216B600337B55 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D376322ED216B600337B55 /* CoreData.framework */; };
 		82D3763E2ED217D700337B55 /* HabitModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 82D3763C2ED217D700337B55 /* HabitModel.xcdatamodeld */; };
 		82D3764F2ED2199500337B55 /* HabitModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 82D3763C2ED217D700337B55 /* HabitModel.xcdatamodeld */; };
@@ -53,6 +55,7 @@
 		8202657C2ECF8393006B90B2 /* HabitTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabitTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		820265922ECF8394006B90B2 /* HabitTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HabitTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8202659C2ECF8394006B90B2 /* HabitTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HabitTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		82D2C3B22EDC5FA6001CB563 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		82D376252ED215D600337B55 /* HabitTrackerCLI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HabitTrackerCLI; sourceTree = BUILT_PRODUCTS_DIR; };
 		82D376322ED216B600337B55 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		82D3763D2ED217D700337B55 /* HabitModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HabitModel.xcdatamodel; sourceTree = "<group>"; };
@@ -149,6 +152,7 @@
 		820265732ECF8393006B90B2 = {
 			isa = PBXGroup;
 			children = (
+				82D2C3B22EDC5FA6001CB563 /* CoreDataStack.swift */,
 				82D3763C2ED217D700337B55 /* HabitModel.xcdatamodeld */,
 				8202657E2ECF8393006B90B2 /* HabitTracker */,
 				820265952ECF8394006B90B2 /* HabitTrackerTests */,
@@ -353,6 +357,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82D2C3B32EDC5FA8001CB563 /* CoreDataStack.swift in Sources */,
 				82D3763E2ED217D700337B55 /* HabitModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,6 +380,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82D2C3B42EDC5FA8001CB563 /* CoreDataStack.swift in Sources */,
 				82D3764F2ED2199500337B55 /* HabitModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

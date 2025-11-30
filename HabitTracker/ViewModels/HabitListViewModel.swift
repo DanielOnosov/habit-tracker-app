@@ -9,7 +9,7 @@ import CoreData
 
 final class HabitListViewModel {
     private(set) var habits: [Habit] = []
-    private let context: NSManagedObjectContext
+    let context: NSManagedObjectContext
     
     init(context: NSManagedObjectContext) {
         self.context = context
