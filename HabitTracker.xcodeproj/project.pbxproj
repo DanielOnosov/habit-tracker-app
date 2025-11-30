@@ -6,6 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		820265B22ECF83EF006B90B2 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 820265B12ECF83EF006B90B2 /* SnapKit */; };
+		82D376332ED216B600337B55 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D376322ED216B600337B55 /* CoreData.framework */; };
+		82D3763E2ED217D700337B55 /* HabitModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 82D3763C2ED217D700337B55 /* HabitModel.xcdatamodeld */; };
+		82D3764F2ED2199500337B55 /* HabitModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 82D3763C2ED217D700337B55 /* HabitModel.xcdatamodeld */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		820265932ECF8394006B90B2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -21,12 +28,34 @@
 			remoteGlobalIDString = 8202657B2ECF8393006B90B2;
 			remoteInfo = HabitTracker;
 		};
+		82D3762C2ED2161500337B55 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 820265742ECF8393006B90B2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8202657B2ECF8393006B90B2;
+			remoteInfo = HabitTracker;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		82D376232ED215D600337B55 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		8202657C2ECF8393006B90B2 /* HabitTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabitTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		820265922ECF8394006B90B2 /* HabitTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HabitTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8202659C2ECF8394006B90B2 /* HabitTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HabitTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		82D376252ED215D600337B55 /* HabitTrackerCLI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HabitTrackerCLI; sourceTree = BUILT_PRODUCTS_DIR; };
+		82D376322ED216B600337B55 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
+		82D3763D2ED217D700337B55 /* HabitModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HabitModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -37,6 +66,23 @@
 			);
 			target = 8202657B2ECF8393006B90B2 /* HabitTracker */;
 		};
+		82D376732ED21BF700337B55 /* Exceptions for "HabitTracker" folder in "HabitTrackerCLI" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Models/EditHabitPayload.swift,
+				"Models/Habit+CoreDataClass.swift",
+				"Models/Habit+CoreDataProperties.swift",
+				"Models/HabitCompletion+CoreDataClass.swift",
+				"Models/HabitCompletion+CoreDataProperties.swift",
+				Models/HabitDetails.swift,
+				Models/HabitPayload.swift,
+				ViewModels/CreateHabitViewModel.swift,
+				ViewModels/EditHabitViewModel.swift,
+				ViewModels/HabitDetailsViewModel.swift,
+				ViewModels/HabitListViewModel.swift,
+			);
+			target = 82D376242ED215D600337B55 /* HabitTrackerCLI */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -44,6 +90,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				820265A42ECF8394006B90B2 /* Exceptions for "HabitTracker" folder in "HabitTracker" target */,
+				82D376732ED21BF700337B55 /* Exceptions for "HabitTracker" folder in "HabitTrackerCLI" target */,
 			);
 			path = HabitTracker;
 			sourceTree = "<group>";
@@ -58,6 +105,11 @@
 			path = HabitTrackerUITests;
 			sourceTree = "<group>";
 		};
+		82D376262ED215D600337B55 /* HabitTrackerCLI */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = HabitTrackerCLI;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				820265B22ECF83EF006B90B2 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,15 +135,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		82D376222ED215D600337B55 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82D376332ED216B600337B55 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		820265732ECF8393006B90B2 = {
 			isa = PBXGroup;
 			children = (
+				82D3763C2ED217D700337B55 /* HabitModel.xcdatamodeld */,
 				8202657E2ECF8393006B90B2 /* HabitTracker */,
 				820265952ECF8394006B90B2 /* HabitTrackerTests */,
 				8202659F2ECF8394006B90B2 /* HabitTrackerUITests */,
+				82D376262ED215D600337B55 /* HabitTrackerCLI */,
+				82D376312ED216B500337B55 /* Frameworks */,
 				8202657D2ECF8393006B90B2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -101,8 +165,17 @@
 				8202657C2ECF8393006B90B2 /* HabitTracker.app */,
 				820265922ECF8394006B90B2 /* HabitTrackerTests.xctest */,
 				8202659C2ECF8394006B90B2 /* HabitTrackerUITests.xctest */,
+				82D376252ED215D600337B55 /* HabitTrackerCLI */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		82D376312ED216B500337B55 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				82D376322ED216B600337B55 /* CoreData.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,6 +198,7 @@
 			);
 			name = HabitTracker;
 			packageProductDependencies = (
+				820265B12ECF83EF006B90B2 /* SnapKit */,
 			);
 			productName = HabitTracker;
 			productReference = 8202657C2ECF8393006B90B2 /* HabitTracker.app */;
@@ -176,6 +250,29 @@
 			productReference = 8202659C2ECF8394006B90B2 /* HabitTrackerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		82D376242ED215D600337B55 /* HabitTrackerCLI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 82D376292ED215D600337B55 /* Build configuration list for PBXNativeTarget "HabitTrackerCLI" */;
+			buildPhases = (
+				82D376212ED215D600337B55 /* Sources */,
+				82D376222ED215D600337B55 /* Frameworks */,
+				82D376232ED215D600337B55 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				82D3762D2ED2161500337B55 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				82D376262ED215D600337B55 /* HabitTrackerCLI */,
+			);
+			name = HabitTrackerCLI;
+			packageProductDependencies = (
+			);
+			productName = HabitTrackerCLI;
+			productReference = 82D376252ED215D600337B55 /* HabitTrackerCLI */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -197,6 +294,9 @@
 						CreatedOnToolsVersion = 26.0;
 						TestTargetID = 8202657B2ECF8393006B90B2;
 					};
+					82D376242ED215D600337B55 = {
+						CreatedOnToolsVersion = 26.0;
+					};
 				};
 			};
 			buildConfigurationList = 820265772ECF8393006B90B2 /* Build configuration list for PBXProject "HabitTracker" */;
@@ -208,6 +308,9 @@
 			);
 			mainGroup = 820265732ECF8393006B90B2;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				820265B02ECF83EF006B90B2 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 8202657D2ECF8393006B90B2 /* Products */;
 			projectDirPath = "";
@@ -216,6 +319,7 @@
 				8202657B2ECF8393006B90B2 /* HabitTracker */,
 				820265912ECF8394006B90B2 /* HabitTrackerTests */,
 				8202659B2ECF8394006B90B2 /* HabitTrackerUITests */,
+				82D376242ED215D600337B55 /* HabitTrackerCLI */,
 			);
 		};
 /* End PBXProject section */
@@ -249,6 +353,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82D3763E2ED217D700337B55 /* HabitModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +371,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		82D376212ED215D600337B55 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82D3764F2ED2199500337B55 /* HabitModel.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -278,6 +391,11 @@
 			isa = PBXTargetDependency;
 			target = 8202657B2ECF8393006B90B2 /* HabitTracker */;
 			targetProxy = 8202659D2ECF8394006B90B2 /* PBXContainerItemProxy */;
+		};
+		82D3762D2ED2161500337B55 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8202657B2ECF8393006B90B2 /* HabitTracker */;
+			targetProxy = 82D3762C2ED2161500337B55 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -551,6 +669,36 @@
 			};
 			name = Release;
 		};
+		82D3762A2ED215D600337B55 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QU22KH3ABY;
+				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		82D3762B2ED215D600337B55 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QU22KH3ABY;
+				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -590,7 +738,48 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		82D376292ED215D600337B55 /* Build configuration list for PBXNativeTarget "HabitTrackerCLI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				82D3762A2ED215D600337B55 /* Debug */,
+				82D3762B2ED215D600337B55 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		820265B02ECF83EF006B90B2 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		820265B12ECF83EF006B90B2 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 820265B02ECF83EF006B90B2 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		82D3763C2ED217D700337B55 /* HabitModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				82D3763D2ED217D700337B55 /* HabitModel.xcdatamodel */,
+			);
+			currentVersion = 82D3763D2ED217D700337B55 /* HabitModel.xcdatamodel */;
+			path = HabitModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 820265742ECF8393006B90B2 /* Project object */;
 }
