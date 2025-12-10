@@ -44,6 +44,29 @@ class CreateHabitView: UIViewController {
 
         return button
     }()
+    
+    private let titleTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Enter habit name"
+        textField.borderStyle = .roundedRect
+        textField.clearButtonMode = .whileEditing
+        return textField
+    }()
+    
+    private var titleText: UILabel = {
+        let label = UILabel()
+        label.text = "Habit Name"
+
+        return label
+    }()
+    
+    private let reminderTimePicker: UIDatePicker = {
+        let picker = UIDatePicker()
+        picker.datePickerMode = .date
+        return picker
+    }()
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +78,9 @@ class CreateHabitView: UIViewController {
         view.addSubview(label)
         view.addSubview(addHabitButton)
         view.addSubview(dismissAddingButton)
+        view.addSubview(titleTextField)
+        view.addSubview(titleText)
+        view.addSubview(reminderTimePicker)
 
         addHabitButton.addTarget(
             self,
@@ -71,18 +97,35 @@ class CreateHabitView: UIViewController {
 
     private func setupConstraints() {
         label.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(-25)
-            make.centerX.equalToSuperview()
-        }
+                make.top.equalTo(view.safeAreaLayoutGuide).offset(-25)
+                make.centerX.equalToSuperview()
+            }
 
-        dismissAddingButton.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
-            make.left.equalToSuperview().offset(16)
-        }
+            dismissAddingButton.snp.makeConstraints { make in
+                make.top.equalTo(label.snp.bottom).offset(20)
+                make.left.equalToSuperview().offset(25)
+            }
 
-        addHabitButton.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
-            make.right.equalToSuperview().inset(16)
+            addHabitButton.snp.makeConstraints { make in
+                make.top.equalTo(label.snp.bottom).offset(20)
+                make.right.equalToSuperview().inset(25)
+            }
+            
+            titleTextField.snp.makeConstraints { make in
+                make.top.equalTo(dismissAddingButton.snp.bottom).offset(60)
+                make.left.right.equalToSuperview().inset(30)
+                make.height.equalTo(50)
+            }
+        
+        titleText.snp.makeConstraints { make in
+            make.bottom.equalTo(titleTextField.snp.top).offset(-5)
+                make.left.right.equalTo(titleTextField)
+        }
+        
+        reminderTimePicker.snp.makeConstraints { make in
+            make.top.equalTo(titleTextField.snp.bottom).offset(20)
+            make.left.right.equalTo(titleTextField)
+            make.height.equalTo(100)
         }
     }
 
