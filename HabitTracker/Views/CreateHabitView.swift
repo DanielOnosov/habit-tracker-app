@@ -21,15 +21,40 @@ class CreateHabitView: UIViewController {
     private var label: UILabel = {
         let label = UILabel()
         label.text = "Create a Habit"
+        label.font = UIFont(name: "ChalkboardSE-Bold", size: 30)
 
         return label
     }()
 
     private let addHabitButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Save", for: .normal)
+        button.setTitle("Create", for: .normal)
         button.backgroundColor = .systemGreen
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 18)
+        button.layer.cornerRadius = 15
+        button.layer.masksToBounds = false
+        button.contentEdgeInsets = UIEdgeInsets(
+            top: 10,
+            left: 20,
+            bottom: 10,
+            right: 20
+        )
+        button.addTarget(
+            nil,
+            action: #selector(buttonTouchedDown(_:)),
+            for: .touchDown
+        )
+        button.addTarget(
+            nil,
+            action: #selector(buttonTouchedUp(_:)),
+            for: .touchUpInside
+        )
+        button.addTarget(
+            nil,
+            action: #selector(buttonTouchedUp(_:)),
+            for: .touchUpOutside
+        )
 
         return button
     }()
@@ -41,6 +66,30 @@ class CreateHabitView: UIViewController {
         button.backgroundColor = .clear
         button.layer.borderWidth = 2
         button.layer.borderColor = UIColor.systemRed.cgColor
+        button.titleLabel?.font = .boldSystemFont(ofSize: 18)
+        button.layer.cornerRadius = 15
+        button.layer.masksToBounds = false
+        button.contentEdgeInsets = UIEdgeInsets(
+            top: 10,
+            left: 20,
+            bottom: 10,
+            right: 20
+        )
+        button.addTarget(
+            nil,
+            action: #selector(buttonTouchedDown(_:)),
+            for: .touchDown
+        )
+        button.addTarget(
+            nil,
+            action: #selector(buttonTouchedUp(_:)),
+            for: .touchUpInside
+        )
+        button.addTarget(
+            nil,
+            action: #selector(buttonTouchedUp(_:)),
+            for: .touchUpOutside
+        )
 
         return button
     }()
@@ -72,7 +121,7 @@ class CreateHabitView: UIViewController {
 
         return label
     }()
-    
+
     private let reminderSwitch: UISwitch = {
         let toggle = UISwitch()
         toggle.isOn = false
@@ -82,11 +131,13 @@ class CreateHabitView: UIViewController {
     private let colorButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Select Color", for: .normal)
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.systemGray.cgColor
+        button.layer.borderWidth = 0
         button.layer.cornerRadius = 8
         button.backgroundColor = .clear
         button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        button.contentHorizontalAlignment = .left
+
         return button
     }()
 
@@ -137,6 +188,15 @@ class CreateHabitView: UIViewController {
         }
     }
 
+    private let colourCircle: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 20
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.systemGray.cgColor
+        return view
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -154,7 +214,7 @@ class CreateHabitView: UIViewController {
         view.addSubview(colorButton)
         view.addSubview(chooseDaysLabel)
         view.addSubview(reminderSwitch)
-
+        view.addSubview(colourCircle)
 
         setupDayButtons()
         view.addSubview(daysStack)
@@ -176,6 +236,12 @@ class CreateHabitView: UIViewController {
             for: .touchUpInside
         )
 
+        reminderSwitch.addTarget(
+            self,
+            action: #selector(reminderSwitchChanged(_:)),
+            for: .valueChanged
+        )
+
     }
 
     private func setupConstraints() {
@@ -185,17 +251,19 @@ class CreateHabitView: UIViewController {
         }
 
         dismissAddingButton.snp.makeConstraints { make in
-            make.top.equalTo(label.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(25)
+            make.top.equalTo(label.snp.bottom).offset(620)
+            make.left.equalToSuperview().offset(50)
+            make.width.equalTo(110)
         }
 
         addHabitButton.snp.makeConstraints { make in
-            make.top.equalTo(label.snp.bottom).offset(20)
-            make.right.equalToSuperview().inset(25)
+            make.top.equalTo(label.snp.bottom).offset(620)
+            make.right.equalToSuperview().inset(50)
+            make.width.equalTo(110)
         }
 
         titleTextField.snp.makeConstraints { make in
-            make.top.equalTo(dismissAddingButton.snp.bottom).offset(100)
+            make.top.equalTo(label.snp.bottom).offset(100)
             make.left.right.equalToSuperview().inset(30)
             make.height.equalTo(50)
         }
@@ -206,19 +274,22 @@ class CreateHabitView: UIViewController {
         }
 
         reminderTimePickerText.snp.makeConstraints { make in
-            make.top.equalTo(titleTextField.snp.bottom).offset(25)
-               make.left.equalTo(colorButton)
+            make.top.equalTo(titleTextField.snp.bottom).offset(50)
+            make.left.equalTo(titleTextField)
+            make.centerY.equalTo(reminderSwitch)
         }
-        
+
         reminderSwitch.snp.makeConstraints { make in
             make.centerY.equalTo(reminderTimePickerText)
-                make.right.equalTo(titleTextField)
+            make.right.equalTo(titleTextField)
         }
-        
+
         reminderTimePicker.snp.makeConstraints { make in
-            make.top.equalTo(reminderTimePickerText.snp.bottom).offset(25)
-            make.centerX.equalToSuperview()
+            make.centerY.equalTo(reminderTimePickerText)
+            make.left.equalTo(reminderTimePickerText.snp.right).offset(20)
         }
+
+        reminderTimePicker.isHidden = true
 
         chooseDaysLabel.snp.makeConstraints { make in
             make.bottom.equalTo(daysStack.snp.top).offset(-5)
@@ -226,15 +297,21 @@ class CreateHabitView: UIViewController {
         }
 
         daysStack.snp.makeConstraints { make in
-            make.top.equalTo(reminderTimePickerText.snp.bottom).offset(110)
+            make.top.equalTo(reminderTimePickerText.snp.bottom).offset(70)
             make.left.right.equalTo(colorButton)
             make.height.equalTo(40)
         }
 
         colorButton.snp.makeConstraints { make in
-            make.top.equalTo(daysStack.snp.bottom).offset(40)
+            make.top.equalTo(daysStack.snp.bottom).offset(50)
             make.left.right.equalTo(titleTextField)
-            make.height.equalTo(50)
+            make.height.equalTo(40)
+        }
+
+        colourCircle.snp.makeConstraints { make in
+            make.centerY.equalTo(colorButton)
+            make.left.equalTo(colorButton.snp.left).inset(115)
+            make.width.height.equalTo(40)
         }
 
     }
@@ -245,6 +322,20 @@ class CreateHabitView: UIViewController {
 
     @objc private func dismissTapped() {
         print("dismiss tapped")
+    }
+
+    @objc private func buttonTouchedDown(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.1) {
+            sender.alpha = 0.7
+            sender.transform = CGAffineTransform(scaleX: 0.97, y: 0.97)
+        }
+    }
+
+    @objc private func buttonTouchedUp(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.15) {
+            sender.alpha = 1.0
+            sender.transform = .identity
+        }
     }
 
     @objc private func showColorPicker() {
@@ -267,7 +358,10 @@ class CreateHabitView: UIViewController {
         }
     }
 
-
+    @objc private func reminderSwitchChanged(_ sender: UISwitch) {
+        print("remind")
+        reminderTimePicker.isHidden = !sender.isOn
+    }
 
 }
 
@@ -276,26 +370,7 @@ extension CreateHabitView: UIColorPickerViewControllerDelegate {
         _ viewController: UIColorPickerViewController
     ) {
         let selectedColor = viewController.selectedColor
-        colorButton.backgroundColor = selectedColor
-
-        if selectedColor.isDarkColor {
-            colorButton.setTitleColor(.white, for: .normal)
-        } else {
-            colorButton.setTitleColor(.black, for: .normal)
-        }
-    }
-}
-
-extension UIColor {
-    var isDarkColor: Bool {
-        var red: CGFloat = 0
-        var green: CGFloat = 0
-        var blue: CGFloat = 0
-        var alpha: CGFloat = 0
-        self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-
-        let luminance = 0.299 * red + 0.587 * green + 0.114 * blue
-        return luminance < 0.5
+        colourCircle.backgroundColor = selectedColor
     }
 }
 
