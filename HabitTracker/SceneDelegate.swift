@@ -6,57 +6,78 @@
 //
 
 import UIKit
+import CoreData
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
+        let window = UIWindow(windowScene: windowScene)
         let context = CoreDataStack.shared.context
-        
+
         let listViewModel = HabitListViewModel(context: context)
         
-        let rootVC = HabitTrackerView(viewModel: listViewModel)
+        listViewModel.load(filterType: .newest)
         
-        let nav = UINavigationController(rootViewController: rootVC)
+        if listViewModel.habits.isEmpty {
+            createInitialHabits(context: context)
+            listViewModel.load(filterType: .newest)
+        }
         
-        let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = nav
+        let rootVC = MainTabBarController()
+        
+        window.rootViewController = rootVC
         self.window = window
         window.makeKeyAndVisible()
     }
-
-    func sceneDidDisconnect(_ scene: UIScene) {
-        // Called as the scene is being released by the system.
-        // This occurs shortly after the scene enters the background, or when its session is discarded.
-        // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
-    }
-
-    func sceneDidBecomeActive(_ scene: UIScene) {
-        // Called when the scene has moved from an inactive state to an active state.
-        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
-    }
-
-    func sceneWillResignActive(_ scene: UIScene) {
-        // Called when the scene will move from an active state to an inactive state.
-        // This may occur due to temporary interruptions (ex. an incoming phone call).
-    }
-
-    func sceneWillEnterForeground(_ scene: UIScene) {
-        // Called as the scene transitions from the background to the foreground.
-        // Use this method to undo the changes made on entering the background.
-    }
-
-    func sceneDidEnterBackground(_ scene: UIScene) {
-        // Called as the scene transitions from the foreground to the background.
-        // Use this method to save data, release shared resources, and store enough scene-specific state information
-        // to restore the scene back to its current state.
-    }
-
-
 }
 
+extension SceneDelegate
+{
+    
+    func createInitialHabits(context: NSManagedObjectContext)
+    {
+        let createVM = CreateHabitViewModel(context: context)
+        
+        let payload1 = HabitPayload(
+            title: "Daily Walk (7-day streak)",
+            reminderTime: Calendar.current.date(bySettingHour: 18, minute: 0, second: 0, of: Date()),
+            color: "#007AFF",
+            schedule: []
+        )
+        createVM.add(payload1)
+        
+        if let habit1 = try? context.fetch(Habit.fetchRequest()).first(where: { $0.title == payload1.title }) {
+            let calendar = Calendar.current
+            for i in 0..<7 {
+                if let pastDate = calendar.date(byAdding: .day, value: -i, to: Date()) {
+                    let completion = HabitCompletion(context: context)
+                    completion.completedAt = pastDate
+                    habit1.addToCompletions(completion)
+                }
+            }
+            try? context.save()
+        }
+        
+        let payload2 = HabitPayload(
+            title: "Read 10 pages",
+            reminderTime: nil,
+            color: "#FF9500",
+            schedule: [6, 7]
+        )
+        createVM.add(payload2)
+        
+        let payload3 = HabitPayload(
+            title: "Learn 5 new words",
+            reminderTime: nil,
+            color: "#34C759",
+            schedule: [1, 2, 3, 4, 5]
+        )
+        createVM.add(payload3)
+    }
+}
