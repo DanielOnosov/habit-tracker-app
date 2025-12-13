@@ -34,12 +34,12 @@ class CreateHabitViewModel {
     }
     
     private func saveContext() {
-           do {
-               try context.save()
-           } catch {
-               print("Failed to save habit: \(error)")
-           }
-       }
+        do {
+            try context.save()
+        } catch {
+            print("Failed to save habit: \(error)")
+        }
+    }
     
     private func scheduleNotification(for habit: Habit, at date: Date) {
 //        let content = UNMutableNotificationContent()
@@ -63,4 +63,3 @@ class CreateHabitViewModel {
 //        }
     }
 }
-
