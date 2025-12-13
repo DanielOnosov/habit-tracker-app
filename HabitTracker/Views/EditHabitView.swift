@@ -21,7 +21,8 @@ class EditHabitView: UIViewController {
     
     private var label: UILabel = {
         let label = UILabel()
-        label.text = "Edit Habbit"
+        label.text = "Edit a Habbit"
+        label.font = UIFont(name: "ChalkboardSE-Bold", size: 30)
         
         return label
     }()

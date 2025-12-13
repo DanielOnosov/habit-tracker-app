@@ -111,7 +111,7 @@ class CreateHabitView: UIViewController {
 
     private let reminderTimePicker: UIDatePicker = {
         let picker = UIDatePicker()
-        picker.datePickerMode = .date
+        picker.datePickerMode = .time
         return picker
     }()
 
@@ -317,11 +317,23 @@ class CreateHabitView: UIViewController {
     }
 
     @objc private func addTapped() {
+        let payload = HabitPayload(
+            title: titleTextField.text ?? "",
+            reminderTime: reminderSwitch.isOn ? reminderTimePicker.date : nil,
+            color: colourCircle.backgroundColor?.toHexString() ?? "#00FF00",
+            schedule: selectedDays.enumerated()
+                .compactMap { $1 ? $0 : nil }
+        )
+
+        viewModel.add(payload)
         print("add tapped")
+        
+        //this screen closes -- all habits opens
     }
 
     @objc private func dismissTapped() {
         print("dismiss tapped")
+        //this screen closes -- all habits opens
     }
 
     @objc private func buttonTouchedDown(_ sender: UIButton) {
