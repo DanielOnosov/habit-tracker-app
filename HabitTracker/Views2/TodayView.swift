@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import CoreData
 
 class TodayView: UIViewController {
 
@@ -139,8 +140,10 @@ extension TodayView: UITableViewDataSource, UITableViewDelegate {
                 return
             }
             
-            let editVM = EditHabitViewModel(context: CoreDataStack.shared.context, habitID: habitID)
-            let editVC = EditHabitView(viewModel: editVM)
+//            let editVM = EditHabitViewModel(context: CoreDataStack.shared.context, habitID: habitID)
+//            let editVC = EditHabitView(viewModel: editVM)
+            let editVM = CreateHabitViewModel(context: viewModel.context)
+            let editVC = CreateHabitView(viewModel: editVM, habit: habitById(habitID, context: viewModel.context))
             self.navigationController?.pushViewController(editVC, animated: true)
             completion(true)
         }
@@ -148,6 +151,19 @@ extension TodayView: UITableViewDataSource, UITableViewDelegate {
         editAction.image = UIImage(systemName: "pencil")
         
         return UISwipeActionsConfiguration(actions: [delAction, editAction])
+    }
+    
+    func habitById(_ id: UUID, context: NSManagedObjectContext) -> Habit? {
+        let request: NSFetchRequest<Habit> = Habit.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
+        request.fetchLimit = 1
+        
+        do {
+            return try context.fetch(request).first
+        } catch {
+            print("Error fetching habit: \(error)")
+            return nil
+        }
     }
 }
 

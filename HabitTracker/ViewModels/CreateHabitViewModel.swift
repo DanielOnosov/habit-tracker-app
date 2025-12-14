@@ -43,7 +43,6 @@ class CreateHabitViewModel {
             habit.id = UUID()
         }
 
-        // Remove old notifications and schedule new ones if needed
         cancelNotifications(for: habit)
 
         if let time = payload.reminderTime {

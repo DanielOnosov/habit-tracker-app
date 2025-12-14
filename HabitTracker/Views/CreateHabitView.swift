@@ -286,13 +286,13 @@ class CreateHabitView: UIViewController {
         }
 
         dismissAddingButton.snp.makeConstraints { make in
-            make.top.equalTo(label.snp.bottom).offset(620)
+            make.top.equalTo(label.snp.bottom).offset(600)
             make.left.equalToSuperview().offset(50)
             make.width.equalTo(110)
         }
 
         addHabitButton.snp.makeConstraints { make in
-            make.top.equalTo(label.snp.bottom).offset(620)
+            make.top.equalTo(label.snp.bottom).offset(600)
             make.right.equalToSuperview().inset(50)
             make.width.equalTo(110)
         }
