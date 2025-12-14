@@ -75,14 +75,13 @@
 				Models/EditHabitPayload.swift,
 				"Models/Habit+CoreDataClass.swift",
 				"Models/Habit+CoreDataProperties.swift",
+				"Models/Habit+Schedule.swift",
 				"Models/HabitCompletion+CoreDataClass.swift",
 				"Models/HabitCompletion+CoreDataProperties.swift",
 				Models/HabitDetails.swift,
 				Models/HabitPayload.swift,
 				ViewModels/CreateHabitViewModel.swift,
 				ViewModels/EditHabitViewModel.swift,
-				ViewModels/HabitDetailsViewModel.swift,
-				ViewModels/HabitListViewModel.swift,
 			);
 			target = 82D376242ED215D600337B55 /* HabitTrackerCLI */;
 		};

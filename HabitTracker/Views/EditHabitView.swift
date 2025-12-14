@@ -8,7 +8,6 @@
 import SnapKit
 import UIKit
 
-
 class EditHabitView: UIViewController {
     private let viewModel: EditHabitViewModel
     
@@ -46,7 +45,7 @@ class EditHabitView: UIViewController {
 
 #Preview("Page 1") {
     let context = CoreDataStack.shared.context
-    let viewModel = EditHabitViewModel(context: context)
+    let viewModel = EditHabitViewModel(context: context, habitID: UUID())
     
     UINavigationController(rootViewController: EditHabitView(viewModel: viewModel))
 }

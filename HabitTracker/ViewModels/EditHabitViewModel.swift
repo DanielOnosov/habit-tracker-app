@@ -5,29 +5,43 @@
 //  Created by Danylo Onosov on 20.11.2025.
 //
 
+import CoreData
 // should contain edit habit by id logic
 // and replan notifications
 import Foundation
-import CoreData
 import UserNotifications
 
 class EditHabitViewModel {
     let context: NSManagedObjectContext
-    
-    init(context: NSManagedObjectContext) {
+    let habitID: UUID
+
+    private(set) var habit: Habit?
+
+    init(context: NSManagedObjectContext, habitID: UUID) {
         self.context = context
+        self.habitID = habitID
+        loadHabit()
+
     }
-    
+
+    private func loadHabit() {
+        let request = Habit.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", habitID as CVarArg)
+        request.fetchLimit = 1
+
+        habit = try? context.fetch(request).first
+    }
+
     func edit(id: UUID, _ payload: EditHabitPayload) {
         let request = Habit.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
         request.fetchLimit = 1
-        
+
         guard let habit = try? context.fetch(request).first else {
             print("Habit not found")
             return
         }
-        
+
         if let title = payload.title {
             habit.title = title
         }
@@ -39,12 +53,12 @@ class EditHabitViewModel {
         }
         if let reminderTime = payload.reminderTime {
             habit.reminderTime = reminderTime
-            
+
             rescheduleNotification(for: habit, at: reminderTime)
         }
-        
+
     }
-    
+
     private func saveContext() {
         do {
             try context.save()
@@ -52,27 +66,27 @@ class EditHabitViewModel {
             print("Failed to save habit: \(error)")
         }
     }
-    
+
     private func rescheduleNotification(for habit: Habit, at date: Date) {
-//        let id = habit.objectID.uriRepresentation().absoluteString
-//        
-//        UNUserNotificationCenter.current()
-//            .removePendingNotificationRequests(withIdentifiers: [id])
-//        
-//        let content = UNMutableNotificationContent()
-//        content.title = "Habit Reminder"
-//        content.body = "Don't forget your habit: \(habit.title)"
-//        content.sound = .default
-//        
-//        let triggerDate = Calendar.current.dateComponents([.hour, .minute], from: date)
-//        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: true)
-//        
-//        let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
-//        
-//        UNUserNotificationCenter.current().add(request) { err in
-//            if let err = err {
-//                print("Notification error: \(err)")
-//            }
-//        }
+        //        let id = habit.objectID.uriRepresentation().absoluteString
+        //
+        //        UNUserNotificationCenter.current()
+        //            .removePendingNotificationRequests(withIdentifiers: [id])
+        //
+        //        let content = UNMutableNotificationContent()
+        //        content.title = "Habit Reminder"
+        //        content.body = "Don't forget your habit: \(habit.title)"
+        //        content.sound = .default
+        //
+        //        let triggerDate = Calendar.current.dateComponents([.hour, .minute], from: date)
+        //        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: true)
+        //
+        //        let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
+        //
+        //        UNUserNotificationCenter.current().add(request) { err in
+        //            if let err = err {
+        //                print("Notification error: \(err)")
+        //            }
+        //        }
     }
 }

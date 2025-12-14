@@ -33,6 +33,26 @@ class CreateHabitViewModel {
         saveContext()
     }
 
+    func update(_ habit: Habit, with payload: HabitPayload) {
+        habit.title = payload.title
+        habit.color = payload.color
+        habit.schedule = payload.schedule.map { NSNumber(value: $0) } as NSArray
+        habit.reminderTime = payload.reminderTime
+
+        if habit.id == nil {
+            habit.id = UUID()
+        }
+
+        // Remove old notifications and schedule new ones if needed
+        cancelNotifications(for: habit)
+
+        if let time = payload.reminderTime {
+            scheduleNotification(for: habit, at: time)
+        }
+
+        saveContext()
+    }
+
     private func saveContext() {
         do {
             try context.save()
@@ -40,6 +60,17 @@ class CreateHabitViewModel {
         } catch {
             print("Failed to save habit: \(error)")
         }
+    }
+
+    private func cancelNotifications(for habit: Habit) {
+        guard let uuid = habit.id?.uuidString else { return }
+        let center = UNUserNotificationCenter.current()
+
+        var identifiers: [String] = [uuid]
+        for day in 0...6 {
+            identifiers.append("\(uuid)_day\(day)")
+        }
+        center.removePendingNotificationRequests(withIdentifiers: identifiers)
     }
 
     private func scheduleNotification(for habit: Habit, at date: Date) {
@@ -70,7 +101,7 @@ class CreateHabitViewModel {
         let habitId = habit.id ?? UUID()
 
         if schedule.isEmpty {
-            // One-time notification at the given time today (or next occurrence if time already passed, per system behavior)
+            // One-time notification at the given time (non-repeating)
             let trigger = UNCalendarNotificationTrigger(
                 dateMatching: timeComponents,
                 repeats: false

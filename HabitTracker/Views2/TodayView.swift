@@ -134,8 +134,13 @@ extension TodayView: UITableViewDataSource, UITableViewDelegate {
             guard let self = self else { return }
             let habit = self.viewModel.todayHabits[indexPath.row]
             
-            let editVM = EditHabitViewModel(context: CoreDataStack.shared.context)
-            let editVC = EditHabitView(viewModel: editVM, habitID: habit.id!)
+            guard let habitID = habit.id else {
+                completion(false)
+                return
+            }
+            
+            let editVM = EditHabitViewModel(context: CoreDataStack.shared.context, habitID: habitID)
+            let editVC = EditHabitView(viewModel: editVM)
             self.navigationController?.pushViewController(editVC, animated: true)
             completion(true)
         }
@@ -144,4 +149,13 @@ extension TodayView: UITableViewDataSource, UITableViewDelegate {
         
         return UISwipeActionsConfiguration(actions: [delAction, editAction])
     }
+}
+
+#Preview("Today") {
+    let context = CoreDataStack.shared.context
+    let viewModel = TodayViewModel(context: context)
+
+    UINavigationController(
+        rootViewController: TodayView(viewModel: viewModel)
+    )
 }

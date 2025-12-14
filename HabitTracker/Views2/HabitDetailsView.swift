@@ -7,6 +7,7 @@
 
 import SnapKit
 import UIKit
+import CoreData
 
 
 class HabitDetailsView: UIViewController
@@ -299,8 +300,38 @@ class HabitDetailsView: UIViewController
     
     @objc func didTapEdit()
     {
-        let editVM = EditHabitViewModel(context: viewModel.context)
-        let editVC = EditHabitView(viewModel: editVM, habitID: habitID)
+        let editVM = CreateHabitViewModel(context: viewModel.context)
+        let editVC = CreateHabitView(viewModel: editVM, habit: habitById(habitID, context: viewModel.context))
         navigationController?.pushViewController(editVC, animated: true)
     }
+    
+    
+    func habitById(_ id: UUID, context: NSManagedObjectContext) -> Habit? {
+        let request: NSFetchRequest<Habit> = Habit.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
+        request.fetchLimit = 1
+        
+        do {
+            return try context.fetch(request).first
+        } catch {
+            print("Error fetching habit: \(error)")
+            return nil
+        }
+    }
+
 }
+
+#Preview("Habit Details") {
+    let context = CoreDataStack.shared.context
+    let habitID = UUID()
+    
+    let viewModel = HabitDetailsViewModel(context: context)
+    
+    UINavigationController(
+        rootViewController: HabitDetailsView(
+            viewModel: viewModel,
+            habitID: habitID
+        )
+    )
+}
+

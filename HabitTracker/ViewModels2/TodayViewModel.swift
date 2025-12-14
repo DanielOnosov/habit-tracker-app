@@ -37,20 +37,36 @@ final class TodayViewModel
             let calendar = Calendar.current
             
             let weekday = calendar.component(.weekday, from: Date())
-            let curDayIndex = (weekday == 1) ? 7 : (weekday - 1)
+//            let curDayIndex = (weekday == 1) ? 7 : (weekday - 1)
+            let curDayIndex = (weekday + 5) % 7
+            
+//            for habit in allHabits {
+//                print("Habit: \(habit.title ?? "no title")")
+//                if let sched = habit.schedule as? NSArray {
+//                    print("Schedule (NSArray): \(sched)")
+//                } else {
+//                    print("Schedule is nil or not NSArray")
+//                }
+//            }
+
             
             self.todayHabits = allHabits.filter { habit in
-                if let schedule = habit.schedule as? [Int] {
-                    if schedule.isEmpty
-                    {
-                        return true
-                    }
-                    return schedule.contains(curDayIndex)
-                }
-                else
-                {
-                    return true
-                }
+//                if let schedule = habit.schedule as? [Int] {
+//                    if schedule.isEmpty
+//                    {
+//                        return true
+//                    }
+//                    return schedule.contains(curDayIndex)
+//                }
+//                else
+//                {
+//                    return true
+//                }
+                let schedule = habit.scheduleInts
+                if schedule.isEmpty { return true }
+                return schedule.contains(curDayIndex)
+
+
             }
         }
         catch

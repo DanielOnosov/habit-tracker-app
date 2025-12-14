@@ -157,3 +157,12 @@ extension HabitTrackerView: UITableViewDataSource, UITableViewDelegate
         }
     }
 }
+
+#Preview("Habit Tracker") {
+    let context = CoreDataStack.shared.context
+    let viewModel = HabitListViewModel(context: context)
+
+    UINavigationController(
+        rootViewController: HabitTrackerView(viewModel: viewModel)
+    )
+}

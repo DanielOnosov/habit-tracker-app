@@ -10,9 +10,11 @@ import UIKit
 
 class CreateHabitView: UIViewController {
     private let viewModel: CreateHabitViewModel
+    private let habitToEdit: Habit?
 
-    init(viewModel: CreateHabitViewModel) {
+    init(viewModel: CreateHabitViewModel, habit: Habit? = nil) {
         self.viewModel = viewModel
+        self.habitToEdit = habit
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -96,7 +98,8 @@ class CreateHabitView: UIViewController {
 
     private let titleTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Enter habit name"
+//        textField.placeholder = "Enter habit name"
+        textField.text = "New Habit"
         textField.borderStyle = .roundedRect
         textField.clearButtonMode = .whileEditing
         return textField
@@ -117,7 +120,7 @@ class CreateHabitView: UIViewController {
 
     private let reminderTimePickerText: UILabel = {
         let label = UILabel()
-        label.text = "Reminder Date"
+        label.text = "Reminder Time"
 
         return label
     }()
@@ -201,6 +204,38 @@ class CreateHabitView: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupConstraints()
+        populateIfEditing()
+    }
+    
+    private func populateIfEditing() {
+        guard let habit = habitToEdit else { return }
+
+        titleTextField.text = habit.title ?? ""
+
+        if let hex = habit.color, let color = UIColor(hex: hex) {
+            colourCircle.backgroundColor = color
+        }
+
+        if let time = habit.reminderTime {
+            reminderSwitch.isOn = true
+            reminderTimePicker.isHidden = false
+            reminderTimePicker.date = time
+        }
+
+        if let schedule = habit.schedule as? [NSNumber] {
+            selectedDays = Array(repeating: false, count: 7)
+            for day in schedule.compactMap({ $0.intValue }) {
+                if day >= 0 && day < 7 {
+                    selectedDays[day] = true
+                    let button = dayButtons[day]
+                    button.backgroundColor = .systemGreen
+                    button.setTitleColor(.white, for: .normal)
+                }
+            }
+        }
+
+        label.text = "Edit Habit"
+        addHabitButton.setTitle("Save", for: .normal)
     }
 
     private func setupUI() {
@@ -325,15 +360,30 @@ class CreateHabitView: UIViewController {
                 .compactMap { $1 ? $0 : nil }
         )
 
-        viewModel.add(payload)
+//        viewModel.add(payload)
+        if let habit = habitToEdit {
+                viewModel.update(habit, with: payload)
+            } else {
+                viewModel.add(payload)
+            }
         print("add tapped")
         
+        let createVM = HabitListViewModel(context: viewModel.context)
+        let createVC = HabitTrackerView(viewModel: createVM)
+        navigationController?.pushViewController(createVC, animated: true)
+        
         //this screen closes -- all habits opens
+        
     }
 
     @objc private func dismissTapped() {
         print("dismiss tapped")
         //this screen closes -- all habits opens
+        
+        let createVM = HabitListViewModel(context: viewModel.context)
+        let createVC = HabitTrackerView(viewModel: createVM)
+        navigationController?.pushViewController(createVC, animated: true)
+        
     }
 
     @objc private func buttonTouchedDown(_ sender: UIButton) {
