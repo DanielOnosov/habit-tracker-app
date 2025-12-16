@@ -10,7 +10,7 @@ Daniel Onosov:
 Alina Kharchenko:
 * ui/ux + backend for Edit Habit & Create Habit screens
 
-Darria Tereshchenko:
+Daria Tretenichenko:
 * ui/ux + backend for Today, Main & Habit detail screens
 
 
