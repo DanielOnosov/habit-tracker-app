@@ -13,4 +13,8 @@ Alina Kharchenko:
 Daria Tretenichenko:
 * ui/ux + backend for Today, Main & Habit detail screens
 
+Koshel Olena
+* tests
+* presentation
+
 
