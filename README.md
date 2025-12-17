@@ -11,7 +11,7 @@ Alina Kharchenko:
 * ui/ux + backend for Edit Habit & Create Habit screens
 
 Daria Tretenichenko:
-* ui/ux + backend for Today, Main & Habit detail screens
+* TodayViewModel, DetailsViewModel, ListViewModel + views for them + MainTabBar. Forgot to tell about filtration implementation and ability to delete and edit a habit by swipe.
 
 Koshel Olena
 * tests
